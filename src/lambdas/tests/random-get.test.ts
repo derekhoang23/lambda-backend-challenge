@@ -14,7 +14,6 @@ describe('random-get handler', () => {
         json: () => Promise.resolve(mockOne),
       }),
     )
-    console.log()
     const response = await randomGet()
     expect(response).toMatchObject({ body: mockOneResult, statusCode: 200 })
   })
