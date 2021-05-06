@@ -1,0 +1,1 @@
+export { FetchBreedError } from './randomError'
