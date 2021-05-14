@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'
+import fetch, { FetchError } from 'node-fetch'
 import { randomGet } from '../controller'
 import { mockOne, mockOneResult } from './mock'
 
@@ -40,5 +40,17 @@ describe('random-get handler', () => {
       message: 'General Error occured getting all breeds',
       statusCode: 500,
     })
+  })
+
+  it('expect Fetch Error instance with Timeout and message', async () => {
+    try {
+      mockedFetch.mockRejectedValueOnce(
+        Promise.reject(await mockedFetch('https://dog.ceo/api/breeds/list/all', { timeout: 10 })),
+      )
+      await randomGet()
+    } catch (err) {
+      expect(err).toBeInstanceOf(FetchError)
+      expect(err.message).toEqual('network timeout at: https://dog.ceo/api/breeds/list/all')
+    }
   })
 })
