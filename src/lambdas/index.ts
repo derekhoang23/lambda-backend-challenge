@@ -1,1 +1,1 @@
-export { handler as randomGet } from './random-get'
+export { randomGet } from './controller'

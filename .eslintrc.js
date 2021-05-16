@@ -21,6 +21,8 @@ module.exports = {
     sourceType: 'module', // Allows for the use of imports
   },
   rules: {
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'error',
     'import/extensions': 'off',
     'import/prefer-default-export': 0,
   },
