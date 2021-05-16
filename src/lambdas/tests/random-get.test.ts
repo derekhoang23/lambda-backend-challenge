@@ -53,4 +53,13 @@ describe('random-get handler', () => {
       expect(err.message).toEqual('network timeout at: https://dog.ceo/api/breeds/list/all')
     }
   })
+
+  it('expect 500 response on timeout external api call', async() => {
+    mockedFetch.mockRejectedValueOnce(new FetchError('network timeout at: https://dog.ceo/api/breeds/list/all', 'request-timeout'))
+    const response = await randomGet()
+    expect(response).toMatchObject({
+      message: 'General Error occured getting all breeds',
+      statusCode: 500,
+    })
+  })
 })
